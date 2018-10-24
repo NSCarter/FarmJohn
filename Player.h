@@ -27,17 +27,20 @@ class John
         cout << gold << " gold" << endl;
     }
     
-    int addGold(int amount) //Add gold to the balance and output the new balance
+    void addGold(int amount) //Add gold to the balance and output the new balance
     {
       gold += amount;
       outputGold();
-      return gold;
     }
     
-    int subtractGold(int amount) //Take gold from the balance and output the new balance
+    void subtractGold(int amount) //Take gold from the balance and output the new balance
     {
         gold -= amount;
         outputGold();
+    }
+    
+    int getGold() //Return the current balance
+    {
         return gold;
     }
     
