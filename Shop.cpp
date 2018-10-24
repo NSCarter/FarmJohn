@@ -5,126 +5,98 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include <sstream>
 #include "Player.cpp"
 using namespace std;
 
-void cropsMenu(John &t)
+void cropsBuyMenu(John &t)
 {
-    string cropsList[5] = {"Carrots", "Potatoes", "Cabbage", "d", "e"}; //10, 20, 30
-    int choice;
+    string itemList[3][2] = {{"Carrots", "10"}, {"Potatoes", "20"}, {"Cabbage", "10"}};
+    int choice, cost;
     
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 3; i++)
     {
-        cout << i+1 << ". " << cropsList[i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(cropsList[choice-1]);
+    t.addToInv(itemList[choice-1][0]);
     
-    switch(choice)
-    {
-        case 1:
-            t.subtractGold(10);
-            break;
-        case 2:
-            t.subtractGold(20);
-            break;
-        case 3:
-            t.subtractGold(30);
-    }
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    t.subtractGold(cost);
 }
 
-void bushesMenu(John &t)
+void bushesBuyMenu(John &t)
 {
-    string cropsList[5] = {"Strawberries", "Blackberries", "Gooseberries", "a", "a"}; //100, 110, 120
-    int choice;
+    string itemList[3][2] = {{"Strawberries","100"}, {"Blackberries","110"}, {"Gooseberries", "120"}};
+    int choice, cost;
     
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 3; i++)
     {
-        cout << i+1 << ". " << cropsList[i] << endl;
+        cout << i+1 << ". " << itemList[i] << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(cropsList[choice-1]);
+    t.addToInv(itemList[choice-1][0]);
     
-    switch(choice)
-    {
-        case 1:
-            t.subtractGold(100);
-            break;
-        case 2:
-            t.subtractGold(110);
-            break;
-        case 3:
-            t.subtractGold(120);
-    }
+    cost = std::stoi(itemList[choice-1][1]);
+    t.subtractGold(cost);
 }
 
-void treesMenu(John &t)
+void treesBuyMenu(John &t)
 {
-    string cropsList[5] = {"Apple", "a", "a", "a", "a"}; //200
-    int choice;
+    string itemList[1][2] = {{"Apple", "200"}};
+    int choice, cost;
     
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 1; i++)
     {
-        cout << i+1 << ". " << cropsList[i] << endl;
+        cout << i+1 << ". " << itemList[i] << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(cropsList[choice-1]);
+    t.addToInv(itemList[choice-1][0]);
     
-    switch(choice)
-    {
-        case 1:
-            t.subtractGold(10);
-            break;
-        case 2:
-            t.subtractGold(20);
-            break;
-        case 3:
-            t.subtractGold(30);
-    }
+    cost = std::stoi(itemList[choice-1][1]);
+    t.subtractGold(cost);
 }
 
-void toolsMenu(John &t)
+void toolsBuyMenu(John &t)
 {
-    string cropsList[5] = {"a", "a", "a", "a", "a"};
-    int choice;
+    string itemList[5] = {"aa", "aa", "aa", "aa", "aa"};
+    int choice, cost;
     
     for (int i = 0; i < 5; i++)
     {
-        cout << i+1 << ". " << cropsList[i] << endl;
+        cout << i+1 << ". " << itemList[i] << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(cropsList[choice-1]);
-    t.subtractGold(50);
+    t.addToInv(itemList[choice-1]);
+    
+    //cost = std::stoi(itemList[choice-1][1]);
+    //t.subtractGold(cost);
 }
 
-void defenceMenu(John &t)
+void defenceBuyMenu(John &t)
 {
-    string cropsList[5] = {"Scarecrow", "a", "a", "a", "a"}; //250
-    int choice;
+    string itemList[1][2] = {{"Scarecrow", "250"}};
+    int choice, cost;
     
     for (int i = 0; i < 5; i++)
     {
-        cout << i+1 << ". " << cropsList[i] << endl;
+        cout << i+1 << ". " << itemList[i] << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(cropsList[choice-1]);
+    t.addToInv(itemList[choice-1][0]);
     
-    switch(choice)
-    {
-        case 1:
-            t.subtractGold(250);
-            break;
-    }
+    cost = std::stoi(itemList[choice-1][1]);
+    t.subtractGold(cost);
 }
 
 void buyMenu(John &t)
@@ -138,37 +110,102 @@ void buyMenu(John &t)
     cout << "Choose an option: ";
     cin >> choice;
     cout << endl;
-    if (choice == 1)
+    switch(choice)
     {
-        cropsMenu(t);
-    }
-    else if (choice == 2)
+        case 1:
+            cropsBuyMenu(t);
+            break;
+        case 2:
+            bushesBuyMenu(t);
+            break;
+        case 3:
+            treesBuyMenu(t);
+            break;
+        case 4:
+            toolsBuyMenu(t);
+            break;
+        case 5:
+            defenceBuyMenu(t);
+            break;
+    }       
+}
+
+void cropsSellMenu(John &t)
+{
+    string itemList[3][2] = {{"Carrots", "20"}, {"Potatoes", "40"}, {"Cabbage", "60"}}; //10, 20, 30
+    int choice, cost;
+    
+    for (int i = 0; i < 3; i++)
     {
-        bushesMenu(t);
+        cout << i+1 << ". " << itemList[i] << endl;
     }
-    else if (choice == 3)
+    cout << "Choose an item: ";
+    cin >> choice;
+    cout << endl;
+    t.takeFromInv(itemList[choice-1][0]);
+    
+    cost = std::stoi(itemList[choice-1][1]);
+    t.addGold(cost);
+}
+
+void bushesSellMenu(John &t)
+{
+    string itemList[3][2] = {{"Strawberries", "10"}, {"Blackberries", "11"}, {"Gooseberries", "12"}};//10, 11, 12
+    int choice, cost;
+    
+    for (int i = 0; i < 3; i++)
     {
-        treesMenu(t);
+        cout << i+1 << ". " << itemList[i][i] << endl;
     }
-    else if (choice == 4)
+    cout << "Choose an item: ";
+    cin >> choice;
+    cout << endl;
+    t.takeFromInv(itemList[choice-1][0]);
+    
+    cost = std::stoi(itemList[choice-1][1]);
+    t.addGold(cost);
+}
+
+void treesSellMenu(John &t)
+{
+    string itemList[1][2] = {{"Apple", "200"}}; //200
+    int choice, cost;
+    
+    for (int i = 0; i < 1; i++)
     {
-        toolsMenu(t);
+        cout << i+1 << ". " << itemList[i] << endl;
     }
-    else
-    {
-        defenceMenu(t);
-    }
+    cout << "Choose an item: ";
+    cin >> choice;
+    cout << endl;
+    t.takeFromInv(itemList[choice-1][0]);
+    
+    cost = std::stoi(itemList[choice-1][1]);
+    t.addGold(cost);
 }
 
 void sellMenu(John &t)
 {
-    string item;
+    int choice;
+    cout << "1. Crops" << endl;
+    cout << "2. Bushes" << endl;
+    cout << "3. Trees" << endl;
+    cout << "Choose an option: ";
+    cin >> choice;
+    cout << endl;
     
-    t.outputInv();
-    cout << "Choose an item to sell: ";
-    cin >> item;
-    t.takeFromInv(item);
-    t.addGold(50);
+    switch(choice)
+    {
+        case 1:
+            cropsSellMenu(t);
+            break;
+        case 2:
+            bushesSellMenu(t);
+            break;
+        case 3:
+            treesSellMenu(t);
+            break;
+    } 
 }
 
 void menu(John &t)
