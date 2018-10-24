@@ -6,7 +6,7 @@
 #include "Player.h"
 using namespace std;
 
-void cropsMenu()
+void cropsMenu(John &t)
 {
     string cropsList[5] = {"a", "a", "a", "a", "a"};
     int choice;
@@ -115,9 +115,15 @@ void buyMenu(John &t)
     }
 }
 
-void sellMenu()
+void sellMenu(John &t)
 {
-   cout << "Choose an item to sell: " << endl; 
+    string item;
+    
+    t.outputInv();
+    cout << "Choose an item to sell: ";
+    cin >> item;
+    t.takeFromInv(item);
+    t.addGold(50);
 }
 
 void menu(John &t)
