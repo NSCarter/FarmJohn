@@ -12,7 +12,7 @@ using namespace std;
 void cropsBuyMenu(John &t)
 {
     string itemList[3][2] = {{"Carrots", "10"}, {"Potatoes", "20"}, {"Cabbage", "10"}};
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 3; i++)
     {
@@ -21,16 +21,22 @@ void cropsBuyMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(itemList[choice-1][0]);
+    cout << "How many would you like to buy? ";
+    cin >> amount;
+    cout << endl;
+    
+    t.addToInv(itemList[choice-1][0], amount);
     
     cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.subtractGold(cost);
 }
 
 void bushesBuyMenu(John &t)
 {
     string itemList[3][2] = {{"Strawberries","100"}, {"Blackberries","110"}, {"Gooseberries", "120"}};
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 3; i++)
     {
@@ -39,16 +45,22 @@ void bushesBuyMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(itemList[choice-1][0]);
+    cout << "How many would you like to buy? ";
+    cin >> amount;
+    cout << endl;
     
-    cost = std::stoi(itemList[choice-1][1]);
+    t.addToInv(itemList[choice-1][0], amount);
+    
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.subtractGold(cost);
 }
 
 void treesBuyMenu(John &t)
 {
     string itemList[1][2] = {{"Apple", "200"}};
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 1; i++)
     {
@@ -57,9 +69,15 @@ void treesBuyMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(itemList[choice-1][0]);
+    cout << "How many would you like to buy? ";
+    cin >> amount;
+    cout << endl;
     
-    cost = std::stoi(itemList[choice-1][1]);
+    t.addToInv(itemList[choice-1][0], amount);
+    
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.subtractGold(cost);
 }
 
@@ -75,7 +93,7 @@ void toolsBuyMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(itemList[choice-1]);
+    //t.addToInv(itemList[choice-1]);
     
     //cost = std::stoi(itemList[choice-1][1]);
     //t.subtractGold(cost);
@@ -84,7 +102,7 @@ void toolsBuyMenu(John &t)
 void defenceBuyMenu(John &t)
 {
     string itemList[1][2] = {{"Scarecrow", "250"}};
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 5; i++)
     {
@@ -93,9 +111,15 @@ void defenceBuyMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.addToInv(itemList[choice-1][0]);
+    cout << "How many would you like to buy? ";
+    cin >> amount;
+    cout << endl;
     
-    cost = std::stoi(itemList[choice-1][1]);
+    t.addToInv(itemList[choice-1][0], amount);
+    
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.subtractGold(cost);
 }
 
@@ -133,7 +157,7 @@ void buyMenu(John &t)
 void cropsSellMenu(John &t)
 {
     string itemList[3][2] = {{"Carrots", "20"}, {"Potatoes", "40"}, {"Cabbage", "60"}}; //10, 20, 30
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 3; i++)
     {
@@ -142,16 +166,22 @@ void cropsSellMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.takeFromInv(itemList[choice-1][0]);
+    cout << "How many would you like to buy? ";
+    cin >> amount;
+    cout << endl;
     
-    cost = std::stoi(itemList[choice-1][1]);
+    t.takeFromInv(itemList[choice-1][0], amount);
+    
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.addGold(cost);
 }
 
 void bushesSellMenu(John &t)
 {
     string itemList[3][2] = {{"Strawberries", "10"}, {"Blackberries", "11"}, {"Gooseberries", "12"}};//10, 11, 12
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 3; i++)
     {
@@ -160,16 +190,22 @@ void bushesSellMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.takeFromInv(itemList[choice-1][0]);
+    cout << "How many would you like to sell? ";
+    cin >> amount;
+    cout << endl;
     
-    cost = std::stoi(itemList[choice-1][1]);
+    t.takeFromInv(itemList[choice-1][0], amount);
+    
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.addGold(cost);
 }
 
 void treesSellMenu(John &t)
 {
     string itemList[1][2] = {{"Apple", "200"}};
-    int choice, cost;
+    int choice, cost, amount;
     
     for (int i = 0; i < 1; i++)
     {
@@ -178,9 +214,15 @@ void treesSellMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
-    t.takeFromInv(itemList[choice-1][0]);
+    cout << "How many would you like to sell? ";
+    cin >> amount;
+    cout << endl;
     
-    cost = std::stoi(itemList[choice-1][1]);
+    t.takeFromInv(itemList[choice-1][0], amount);
+    
+    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost *= amount;
+    
     t.addGold(cost);
 }
 
@@ -231,6 +273,7 @@ int main()
     John t;
     
     t.outputGold();
+    t.addToInv("Carrots", 5);
     t.outputInv();
 
     menu(t);
