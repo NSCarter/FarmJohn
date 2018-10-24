@@ -18,10 +18,11 @@ void cropsMenu()
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.subtractGold(50);
     
 }
 
-void bushesMenu()
+void bushesMenu(John &t)
 {
     string cropsList[5] = {"a", "a", "a", "a", "a"};
     int choice;
@@ -33,9 +34,10 @@ void bushesMenu()
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.subtractGold(50);
 }
 
-void treesMenu()
+void treesMenu(John &t)
 {
     string cropsList[5] = {"a", "a", "a", "a", "a"};
     int choice;
@@ -47,9 +49,10 @@ void treesMenu()
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.subtractGold(50);
 }
 
-void toolsMenu()
+void toolsMenu(John &t)
 {
     string cropsList[5] = {"a", "a", "a", "a", "a"};
     int choice;
@@ -61,9 +64,10 @@ void toolsMenu()
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.subtractGold(50);
 }
 
-void defenceMenu()
+void defenceMenu(John &t)
 {
     string cropsList[5] = {"a", "a", "a", "a", "a"};
     int choice;
@@ -75,9 +79,10 @@ void defenceMenu()
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.subtractGold(50);
 }
 
-void buyMenu()
+void buyMenu(John &t)
 {
     int choice;
     cout << "1. Crops" << endl;
@@ -90,23 +95,23 @@ void buyMenu()
     cout << endl;
     if (choice == 1)
     {
-        cropsMenu();
+        cropsMenu(t);
     }
     else if (choice == 2)
     {
-        bushesMenu();
+        bushesMenu(t);
     }
     else if (choice == 3)
     {
-        treesMenu();
+        treesMenu(t);
     }
     else if (choice == 4)
     {
-        toolsMenu();
+        toolsMenu(t);
     }
     else
     {
-        defenceMenu();
+        defenceMenu(t);
     }
 }
 
@@ -115,7 +120,7 @@ void sellMenu()
    cout << "Choose an item to sell: " << endl; 
 }
 
-void menu()
+void menu(John &t)
 {
     int choice;
     cout << "1. Buy" << endl;
@@ -125,17 +130,19 @@ void menu()
     cout << endl;
     if (choice == 1)
     {
-        buyMenu();
+        buyMenu(t);
     }
     else
     {
-        sellMenu();
+        sellMenu(t);
     }
 }
 
 int main()
 {
-    menu();
+    John t;
+
+    menu(t);
     
     
     return 0;
