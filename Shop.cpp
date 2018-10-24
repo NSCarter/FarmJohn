@@ -8,7 +8,7 @@ using namespace std;
 
 void cropsMenu(John &t)
 {
-    string cropsList[5] = {"a", "a", "a", "a", "a"};
+    string cropsList[5] = {"a", "b", "c", "d", "e"};
     int choice;
     
     for (int i = 0; i < 5; i++)
@@ -18,6 +18,7 @@ void cropsMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.addToInv(cropsList[choice-1]);
     t.subtractGold(50);
     
 }
@@ -34,6 +35,7 @@ void bushesMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.addToInv(cropsList[choice-1]);
     t.subtractGold(50);
 }
 
@@ -49,6 +51,7 @@ void treesMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.addToInv(cropsList[choice-1]);
     t.subtractGold(50);
 }
 
@@ -64,6 +67,7 @@ void toolsMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.addToInv(cropsList[choice-1]);
     t.subtractGold(50);
 }
 
@@ -79,6 +83,7 @@ void defenceMenu(John &t)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    t.addToInv(cropsList[choice-1]);
     t.subtractGold(50);
 }
 
