@@ -94,7 +94,7 @@ class John
     {
         for (int i = 0; i < inventory.size(); i++)
         {
-            cout << i+1 << ". " << inventory[i].first << ": " << inventory[i].second << endl;
+            cout << inventory[i].first << ": " << inventory[i].second << endl;
         }
     }
     
@@ -174,22 +174,12 @@ class John
 
 #endif
 
-/*int main()
+int main()
 {
     John t;
     t.outputInv();
-    cout << endl;
-    //t.addToInv("Shovel",50);
-    //t.outputInv();
-    t.addToInv("Seeds",50);
-    t.outputInv();
-    cout << endl;
-    t.takeFromInv("Seeds", 2);
-    
-    //bool a = t.checkInInv("Carrots");
-    //cout << a << endl;
-    
+    t.addToInv("Carrots", 10);
     t.outputInv();
     
     return 0;   
-}*/
+}
