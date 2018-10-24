@@ -1,22 +1,20 @@
 //By Niamh
 
 ////Add error checking
-
 #include <iostream>
 #include <string>
-#include <array>
+#include <vector>
 #include <sstream>
 #include "Player.cpp"
 using namespace std;
 
-void cropsBuyMenu(John &t)
+void buy(John &t, vector<pair<string, int>> list)
 {
-    string itemList[3][2] = {{"Carrots", "10"}, {"Potatoes", "20"}, {"Cabbage", "10"}};
     int choice, cost, amount;
     
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < list.size(); i++)
     {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
+        cout << i+1 << ". " << list[i].first << ": " << list[i].second << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
@@ -25,99 +23,9 @@ void cropsBuyMenu(John &t)
     cin >> amount;
     cout << endl;
     
-    t.addToInv(itemList[choice-1][0], amount);
+    t.addToInv(list[choice-1].first, amount);
     
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
-    cost *= amount;
-    
-    t.subtractGold(cost);
-}
-
-void bushesBuyMenu(John &t)
-{
-    string itemList[3][2] = {{"Strawberries","100"}, {"Blackberries","110"}, {"Gooseberries", "120"}};
-    int choice, cost, amount;
-    
-    for (int i = 0; i < 3; i++)
-    {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
-    }
-    cout << "Choose an item: ";
-    cin >> choice;
-    cout << endl;
-    cout << "How many would you like to buy? ";
-    cin >> amount;
-    cout << endl;
-    
-    t.addToInv(itemList[choice-1][0], amount);
-    
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
-    cost *= amount;
-    
-    t.subtractGold(cost);
-}
-
-void treesBuyMenu(John &t)
-{
-    string itemList[1][2] = {{"Apple", "200"}};
-    int choice, cost, amount;
-    
-    for (int i = 0; i < 1; i++)
-    {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
-    }
-    cout << "Choose an item: ";
-    cin >> choice;
-    cout << endl;
-    cout << "How many would you like to buy? ";
-    cin >> amount;
-    cout << endl;
-    
-    t.addToInv(itemList[choice-1][0], amount);
-    
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
-    cost *= amount;
-    
-    t.subtractGold(cost);
-}
-
-void toolsBuyMenu(John &t)
-{
-    string itemList[5] = {"aa", "aa", "aa", "aa", "aa"};
-    int choice, cost;
-    
-    for (int i = 0; i < 5; i++)
-    {
-        cout << i+1 << ". " << itemList[i] << endl;
-    }
-    cout << "Choose an item: ";
-    cin >> choice;
-    cout << endl;
-    //t.addToInv(itemList[choice-1]);
-    
-    //cost = std::stoi(itemList[choice-1][1]);
-    //t.subtractGold(cost);
-}
-
-void defenceBuyMenu(John &t)
-{
-    string itemList[1][2] = {{"Scarecrow", "250"}};
-    int choice, cost, amount;
-    
-    for (int i = 0; i < 5; i++)
-    {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
-    }
-    cout << "Choose an item: ";
-    cin >> choice;
-    cout << endl;
-    cout << "How many would you like to buy? ";
-    cin >> amount;
-    cout << endl;
-    
-    t.addToInv(itemList[choice-1][0], amount);
-    
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost = list[choice-1].second;
     cost *= amount;
     
     t.subtractGold(cost);
@@ -125,102 +33,63 @@ void defenceBuyMenu(John &t)
 
 void buyMenu(John &t)
 {
+    typedef vector<pair<string, int>>  List;
+    
+    List cropsList = {{"Carrots", 10}, {"Potatoes", 20}, {"Cabbage", 10}};
+    List bushesList = {{"Strawberries",100}, {"Blackberries",110}, {"Gooseberries", 120}};
+    List treesList = {{"Apple", 200}};
+    List defenceList = {{"Scarecrow", 250}};
     int choice;
+    
     cout << "1. Crops" << endl;
     cout << "2. Bushes" << endl;
     cout << "3. Trees" << endl;
-    cout << "4. Tools" <<endl;
-    cout << "5. Defence" << endl;
+    cout << "4. Defence" << endl;
     cout << "Choose an option: ";
     cin >> choice;
     cout << endl;
     switch(choice)
     {
         case 1:
-            cropsBuyMenu(t);
+            buy(t, cropsList);
             break;
         case 2:
-            bushesBuyMenu(t);
+            buy(t, bushesList);
             break;
         case 3:
-            treesBuyMenu(t);
+            buy(t, treesList);
             break;
         case 4:
-            toolsBuyMenu(t);
-            break;
-        case 5:
-            defenceBuyMenu(t);
+            buy(t, defenceList);
             break;
     }       
 }
 
-void cropsSellMenu(John &t)
+void sell(John &t, vector<pair<string, int>> list)
 {
-    string itemList[3][2] = {{"Carrots", "20"}, {"Potatoes", "40"}, {"Cabbage", "60"}}; //10, 20, 30
     int choice, cost, amount;
     
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < list.size(); i++)
     {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
+        cout << i+1 << ". " << list[i].first << ": " << list[i].second << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    
+    if (choice > list.size())
+    {
+        cout << "Not an option" << endl << endl;
+        sell(t, list);
+    }
+    
     cout << "How many would you like to buy? ";
     cin >> amount;
     cout << endl;
     
-    t.takeFromInv(itemList[choice-1][0], amount);
+    t.takeFromInv(list[choice-1].first, amount);
     
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
-    cost *= amount;
-    
-    t.addGold(cost);
-}
-
-void bushesSellMenu(John &t)
-{
-    string itemList[3][2] = {{"Strawberries", "10"}, {"Blackberries", "11"}, {"Gooseberries", "12"}};//10, 11, 12
-    int choice, cost, amount;
-    
-    for (int i = 0; i < 3; i++)
-    {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
-    }
-    cout << "Choose an item: ";
-    cin >> choice;
-    cout << endl;
-    cout << "How many would you like to sell? ";
-    cin >> amount;
-    cout << endl;
-    
-    t.takeFromInv(itemList[choice-1][0], amount);
-    
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
-    cost *= amount;
-    
-    t.addGold(cost);
-}
-
-void treesSellMenu(John &t)
-{
-    string itemList[1][2] = {{"Apple", "200"}};
-    int choice, cost, amount;
-    
-    for (int i = 0; i < 1; i++)
-    {
-        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
-    }
-    cout << "Choose an item: ";
-    cin >> choice;
-    cout << endl;
-    cout << "How many would you like to sell? ";
-    cin >> amount;
-    cout << endl;
-    
-    t.takeFromInv(itemList[choice-1][0], amount);
-    
-    cost = std::stoi(itemList[choice-1][1]); //https://stackoverflow.com/questions/194465/how-to-parse-a-string-to-an-int-in-c
+    cost = list[choice-1].second;
     cost *= amount;
     
     t.addGold(cost);
@@ -228,7 +97,13 @@ void treesSellMenu(John &t)
 
 void sellMenu(John &t)
 {
+    typedef vector<pair<string, int>>  List;
+    
+    List cropsList = {{"Carrots", 20}, {"Potatoes", 40}, {"Cabbage", 60}};
+    List bushesList = {{"Strawberries", 10}, {"Blackberries", 11}, {"Gooseberries", 12}};
+    List treesList = {{"Apple", 200}};
     int choice;
+    
     cout << "1. Crops" << endl;
     cout << "2. Bushes" << endl;
     cout << "3. Trees" << endl;
@@ -239,14 +114,17 @@ void sellMenu(John &t)
     switch(choice)
     {
         case 1:
-            cropsSellMenu(t);
+            sell(t, cropsList);
             break;
         case 2:
-            bushesSellMenu(t);
+            sell(t, bushesList);
             break;
         case 3:
-            treesSellMenu(t);
+            sell(t, treesList);
             break;
+        default:
+            cout << "Not an option" << endl << endl;
+            sellMenu(t);
     } 
 }
 
@@ -262,9 +140,14 @@ void menu(John &t)
     {
         buyMenu(t);
     }
-    else
+    else if (choice == 2)
     {
         sellMenu(t);
+    }
+    else
+    {
+        cout << "Not an option" << endl << endl;
+        menu(t);
     }
 }
 
