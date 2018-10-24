@@ -19,15 +19,26 @@ void buy(John &t, vector<pair<string, int>> list)
     cout << "Choose an item: ";
     cin >> choice;
     cout << endl;
+    
+    if (choice > list.size())
+    {
+        cout << "Not an option" << endl << endl;
+        buy(t, list);
+    }
+    
     cout << "How many would you like to buy? ";
     cin >> amount;
     cout << endl;
     
-    t.addToInv(list[choice-1].first, amount);
-    
     cost = list[choice-1].second;
     cost *= amount;
     
+    if (t.getGold() < cost)
+    {
+       cout << "You do not have enough gold" << endl << endl;
+    }
+    
+    t.addToInv(list[choice-1].first, amount);
     t.subtractGold(cost);
 }
 
@@ -62,6 +73,10 @@ void buyMenu(John &t)
         case 4:
             buy(t, defenceList);
             break;
+        default:
+            cout << "Not an option" << endl << endl;
+            buyMenu(t);
+            break;
     }       
 }
 
@@ -86,6 +101,20 @@ void sell(John &t, vector<pair<string, int>> list)
     cout << "How many would you like to buy? ";
     cin >> amount;
     cout << endl;
+    
+    vector<pair<string, int>> inventory = t.getInventory();
+    
+    for (int i = 0; i < inventory.size(); i++)
+    {
+        if (inventory[i].first == list[choice-1].first)
+        {
+            if (inventory[i].second < amount)
+            {
+                cout << "You don't have enough to sell" << endl << endl;
+            }
+            break;
+        }
+    }
     
     t.takeFromInv(list[choice-1].first, amount);
     
@@ -125,6 +154,7 @@ void sellMenu(John &t)
         default:
             cout << "Not an option" << endl << endl;
             sellMenu(t);
+            break;
     } 
 }
 
