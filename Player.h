@@ -98,6 +98,11 @@ class John
         }
     }
     
+    vector<pair<string, int>> getInventory() //Returns the inventory
+    {
+        return inventory;
+    }
+    
     bool checkInInv(string item) //Check if an item is in the inventory
     {
         for (int i = 0; i < inventory.size(); i++)
@@ -169,7 +174,7 @@ class John
 
 #endif
 
-int main()
+/*int main()
 {
     John t;
     t.outputInv();
@@ -187,4 +192,4 @@ int main()
     t.outputInv();
     
     return 0;   
-}
+}*/
