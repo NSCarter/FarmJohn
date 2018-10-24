@@ -1,6 +1,5 @@
 //By Niamh
 
-////Add error checking
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,45 +7,49 @@
 #include "Player.cpp"
 using namespace std;
 
-void buy(John &t, vector<pair<string, int>> list)
+void buy(John &t, vector<pair<string, int>> list) //Function to allow the player to buy an item
 {
     int choice, cost, amount;
     
-    for (int i = 0; i < list.size(); i++)
+    for (int i = 0; i < list.size(); i++) //Display the items on sale and their price
     {
         cout << i+1 << ". " << list[i].first << ": " << list[i].second << " gold" << endl;
     }
     cout << "Choose an item: ";
-    cin >> choice;
+    cin >> choice; //Player enters their choice
     cout << endl;
     
-    if (choice > list.size())
+    if (choice > list.size()) //Check the player entered a valid number for an item
     {
-        cout << "Not an option" << endl << endl;
-        buy(t, list);
+        cout << "Not an option" << endl << endl; 
+        buy(t, list); //If the number was not vaild, ask the player to try again
     }
     
     cout << "How many would you like to buy? ";
-    cin >> amount;
+    cin >> amount; //Player enters how many of the item they want to buy
     cout << endl;
     
-    cost = list[choice-1].second;
-    cost *= amount;
+    cost = list[choice-1].second; //Find the cost of the item
+    cost *= amount; //Find the cost for the quantity the player asked for
     
-    if (t.getGold() < cost)
+    if (t.getGold() < cost) //Check they player has enough gold
     {
        cout << "You do not have enough gold" << endl << endl;
+       buy(t, list);
     }
+     
+    //If the player has enough gold 
+    t.addToInv(list[choice-1].first, amount); //Add the item to their inventory
+    t.subtractGold(cost);// Take the gold from their inventory
     
-    t.addToInv(list[choice-1].first, amount);
-    t.subtractGold(cost);
+
 }
 
 void buyMenu(John &t)
 {
-    typedef vector<pair<string, int>>  List;
+    typedef vector<pair<string, int>>  List; //Define a type for the following lists
     
-    List cropsList = {{"Carrots", 10}, {"Potatoes", 20}, {"Cabbage", 10}};
+    List cropsList = {{"Carrots", 10}, {"Potatoes", 20}, {"Cabbage", 10}}; //Lists of the items on sale and their prices
     List bushesList = {{"Strawberries",100}, {"Blackberries",110}, {"Gooseberries", 120}};
     List treesList = {{"Apple", 200}};
     List defenceList = {{"Scarecrow", 250}};
@@ -57,9 +60,10 @@ void buyMenu(John &t)
     cout << "3. Trees" << endl;
     cout << "4. Defence" << endl;
     cout << "Choose an option: ";
-    cin >> choice;
+    cin >> choice; //Player enters their choice
     cout << endl;
-    switch(choice)
+    
+    switch(choice) //Use the corresponding list to the option the player chose
     {
         case 1:
             buy(t, cropsList);
@@ -73,62 +77,64 @@ void buyMenu(John &t)
         case 4:
             buy(t, defenceList);
             break;
-        default:
-            cout << "Not an option" << endl << endl;
+        default: //If the player entered a number that was not an option
+            cout << "Not an option" << endl << endl; //Ask them to try again
             buyMenu(t);
             break;
     }       
 }
 
-void sell(John &t, vector<pair<string, int>> list)
+void sell(John &t, vector<pair<string, int>> list) //Function to allow the player to sell an item
 {
     int choice, cost, amount;
     
-    for (int i = 0; i < list.size(); i++)
+    for (int i = 0; i < list.size(); i++) //Display the items to sell and their price
     {
         cout << i+1 << ". " << list[i].first << ": " << list[i].second << " gold" << endl;
     }
     cout << "Choose an item: ";
-    cin >> choice;
+    cin >> choice; //Player enters their choice
     cout << endl;
     
-    if (choice > list.size())
+    if (choice > list.size()) //Check the player entered a valid number for an item
     {
         cout << "Not an option" << endl << endl;
-        sell(t, list);
+        sell(t, list); //If the number was not valid, ask the player to try again
     }
     
     cout << "How many would you like to buy? ";
-    cin >> amount;
+    cin >> amount; //Player enters how many of the item they want to sell
     cout << endl;
     
-    vector<pair<string, int>> inventory = t.getInventory();
+    vector<pair<string, int>> inventory = t.getInventory(); //Get the player's inventory
     
-    for (int i = 0; i < inventory.size(); i++)
+    for (int i = 0; i < inventory.size(); i++) //Check that the player has enough of the item to sell
     {
         if (inventory[i].first == list[choice-1].first)
         {
             if (inventory[i].second < amount)
             {
                 cout << "You don't have enough to sell" << endl << endl;
+                sell(t, list); //If they don't have enough, ask them to try again
             }
             break;
         }
     }
     
-    t.takeFromInv(list[choice-1].first, amount);
+    //If the player has enough of the item to sell
+    t.takeFromInv(list[choice-1].first, amount); //Take the item from the player's inventory
     
-    cost = list[choice-1].second;
-    cost *= amount;
+    cost = list[choice-1].second; //Find the selling price of the item
+    cost *= amount; //Find the selling price for the quanity the player asked to sell
     
-    t.addGold(cost);
+    t.addGold(cost); //Give the gold to the player
 }
 
 void sellMenu(John &t)
 {
-    typedef vector<pair<string, int>>  List;
+    typedef vector<pair<string, int>>  List; //Define a type for the following lists
     
-    List cropsList = {{"Carrots", 20}, {"Potatoes", 40}, {"Cabbage", 60}};
+    List cropsList = {{"Carrots", 20}, {"Potatoes", 40}, {"Cabbage", 60}}; //List of the items to sell and their prices
     List bushesList = {{"Strawberries", 10}, {"Blackberries", 11}, {"Gooseberries", 12}};
     List treesList = {{"Apple", 200}};
     int choice;
@@ -137,10 +143,10 @@ void sellMenu(John &t)
     cout << "2. Bushes" << endl;
     cout << "3. Trees" << endl;
     cout << "Choose an option: ";
-    cin >> choice;
+    cin >> choice; //Player enters their choice
     cout << endl;
     
-    switch(choice)
+    switch(choice) //Use the corresponding list to the option the player chose
     {
         case 1:
             sell(t, cropsList);
@@ -151,8 +157,8 @@ void sellMenu(John &t)
         case 3:
             sell(t, treesList);
             break;
-        default:
-            cout << "Not an option" << endl << endl;
+        default: //If the player entered  a number that was not an option
+            cout << "Not an option" << endl << endl; //Ask them to try again
             sellMenu(t);
             break;
     } 
@@ -164,19 +170,19 @@ void menu(John &t)
     cout << "1. Buy" << endl;
     cout << "2. Sell" << endl;
     cout << "Choose an option: ";
-    cin >> choice;
+    cin >> choice; //Player enters their choice
     cout << endl;
     if (choice == 1)
     {
-        buyMenu(t);
+        buyMenu(t); //Display the buy menu
     }
     else if (choice == 2)
     {
-        sellMenu(t);
+        sellMenu(t); //Display the sell menu
     }
-    else
+    else //If the player entered a number that was not an option
     {
-        cout << "Not an option" << endl << endl;
+        cout << "Not an option" << endl << endl; //Ask them to try again
         menu(t);
     }
 }
