@@ -34,7 +34,7 @@ void bushesBuyMenu(John &t)
     
     for (int i = 0; i < 3; i++)
     {
-        cout << i+1 << ". " << itemList[i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
@@ -52,7 +52,7 @@ void treesBuyMenu(John &t)
     
     for (int i = 0; i < 1; i++)
     {
-        cout << i+1 << ". " << itemList[i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
@@ -88,7 +88,7 @@ void defenceBuyMenu(John &t)
     
     for (int i = 0; i < 5; i++)
     {
-        cout << i+1 << ". " << itemList[i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
@@ -137,7 +137,7 @@ void cropsSellMenu(John &t)
     
     for (int i = 0; i < 3; i++)
     {
-        cout << i+1 << ". " << itemList[i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
@@ -155,7 +155,7 @@ void bushesSellMenu(John &t)
     
     for (int i = 0; i < 3; i++)
     {
-        cout << i+1 << ". " << itemList[i][i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
@@ -168,12 +168,12 @@ void bushesSellMenu(John &t)
 
 void treesSellMenu(John &t)
 {
-    string itemList[1][2] = {{"Apple", "200"}}; //200
+    string itemList[1][2] = {{"Apple", "200"}};
     int choice, cost;
     
     for (int i = 0; i < 1; i++)
     {
-        cout << i+1 << ". " << itemList[i] << endl;
+        cout << i+1 << ". " << itemList[i][0] << ": " << itemList[i][1] << " gold" << endl;
     }
     cout << "Choose an item: ";
     cin >> choice;
