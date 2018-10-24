@@ -15,14 +15,6 @@ class John
     string farmName;
     vector<pair<string, int>>  inventory;
     
-  /*void save()
-  {
-      string sqliteFile = "ExportedFarmJohn.sqlite"; 
-      
-      sqlite::sqlite db (sqliteFile);
-      auto cur = db.get_statement();
-  }*/
-    
   public:
     John()
     {
@@ -106,6 +98,66 @@ class John
     {
         cout << "Stats" << endl;
     }
+    
+    void save()
+    {    
+      try
+      {
+          int count;
+
+          sqlite::sqlite db("FarmJohnDatabase.sqlite");
+          auto cur = db.get_statement();
+
+          for (int i = 0; i < inventory.size(); i++)
+          {
+              //cout << "here" << endl;
+              
+              cur -> set_sql("SELECT count(*) "
+                             "FROM UserInventory "
+                             "WHERE PlayerName = ? "
+                             "AND ItemName = ?");
+              //cout << "here" << endl;
+              cur -> prepare();
+              cout << "here" << endl;
+              cur -> bind(1, farmName);
+              cur -> bind(2, inventory[i].first);
+              cur -> step();
+
+              int count = cur -> get_int(0);
+
+              cur -> reset();
+              //cout << "here" << endl;
+
+              if (count == 0)
+              {
+                  cur -> set_sql("INSERT INTO UserInventory Values (?, ?, ?);");
+                  cur -> prepare();
+                  cur -> bind(1, farmName);
+                  cur -> bind(2, inventory[i].first);
+                  cur -> bind(3, inventory[i].second);
+                  cur -> step();
+              }
+              else
+              {
+                  cur -> set_sql("UPDATE UserInventory "
+                                 "SET NumInInventory = ? "
+                                 "WHERE PlayerName = ? "
+                                 "AND ItemName = ?");
+                  cur -> prepare();
+                  cur -> bind(1, inventory[i].second);
+                  cur -> bind(2, farmName);
+                  cur -> bind(3, inventory[i].first);
+                  cur -> step();
+              }
+
+              cur -> reset();
+          }
+      }
+      catch(sqlite::exception e)
+      {
+          std::cerr << e.what() << std::endl;
+      }
+    }
 };
 
 #endif
@@ -120,9 +172,8 @@ int main()
     t.addToInv("Seeds",50);
     t.outputInv();
     cout << endl;
-    //t.takeFromInv("Shovel",1);
-    //cout << endl;
-    t.takeFromInv("Seeds",15);
+    t.takeFromInv("Seeds", 2);
     t.outputInv();
+    
     return 0;   
 }
