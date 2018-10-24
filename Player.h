@@ -174,7 +174,7 @@ class John
 
 #endif
 
-int main()
+/*int main()
 {
     John t;
     t.outputInv();
@@ -182,4 +182,4 @@ int main()
     t.outputInv();
     
     return 0;   
-}
+}*/
