@@ -75,11 +75,24 @@ class John
         }
     }
     
-    /*vector<string> takeFromInv(string item)
+    void takeFromInv(string item, int quantity)
     {
-        inventory.erase(std::remove(inventory.begin(), inventory.end(), item), inventory.end());    //https://stackoverflow.com/questions/3385229/c-erase-vector-element-by-value-rather-than-by-position
-        return inventory;
-    }*/
+        for (int i = 0; i < inventory.size(); i++)
+        {
+            if (inventory[i].first == item)
+            {
+                if (inventory[i].second -= quantity > 0)
+                {
+                    inventory[i].second -= quantity;
+                }
+                else
+                {
+                    inventory.erase(inventory.begin() + i);
+                }
+                break;
+            }
+        }
+    }
     
     void outputInv()
     {
@@ -101,9 +114,15 @@ int main()
 {
     John t;
     t.outputInv();
-    t.addToInv("Shovel",50);
-    t.outputInv();
+    cout << endl;
+    //t.addToInv("Shovel",50);
+    //t.outputInv();
     t.addToInv("Seeds",50);
+    t.outputInv();
+    cout << endl;
+    //t.takeFromInv("Shovel",1);
+    //cout << endl;
+    t.takeFromInv("Seeds",15);
     t.outputInv();
     return 0;   
 }
