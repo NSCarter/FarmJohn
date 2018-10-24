@@ -1,14 +1,16 @@
-//Add error checking
+//By Niamh
+
+////Add error checking
 
 #include <iostream>
 #include <string>
 #include <array>
-#include "Player.h"
+#include "Player.cpp"
 using namespace std;
 
 void cropsMenu(John &t)
 {
-    string cropsList[5] = {"a", "b", "c", "d", "e"};
+    string cropsList[5] = {"Carrots", "Potatoes", "Cabbage", "d", "e"}; //10, 20, 30
     int choice;
     
     for (int i = 0; i < 5; i++)
@@ -19,13 +21,23 @@ void cropsMenu(John &t)
     cin >> choice;
     cout << endl;
     t.addToInv(cropsList[choice-1]);
-    t.subtractGold(50);
     
+    switch(choice)
+    {
+        case 1:
+            t.subtractGold(10);
+            break;
+        case 2:
+            t.subtractGold(20);
+            break;
+        case 3:
+            t.subtractGold(30);
+    }
 }
 
 void bushesMenu(John &t)
 {
-    string cropsList[5] = {"a", "a", "a", "a", "a"};
+    string cropsList[5] = {"Strawberries", "Blackberries", "Gooseberries", "a", "a"}; //100, 110, 120
     int choice;
     
     for (int i = 0; i < 5; i++)
@@ -36,12 +48,23 @@ void bushesMenu(John &t)
     cin >> choice;
     cout << endl;
     t.addToInv(cropsList[choice-1]);
-    t.subtractGold(50);
+    
+    switch(choice)
+    {
+        case 1:
+            t.subtractGold(100);
+            break;
+        case 2:
+            t.subtractGold(110);
+            break;
+        case 3:
+            t.subtractGold(120);
+    }
 }
 
 void treesMenu(John &t)
 {
-    string cropsList[5] = {"a", "a", "a", "a", "a"};
+    string cropsList[5] = {"Apple", "a", "a", "a", "a"}; //200
     int choice;
     
     for (int i = 0; i < 5; i++)
@@ -52,7 +75,18 @@ void treesMenu(John &t)
     cin >> choice;
     cout << endl;
     t.addToInv(cropsList[choice-1]);
-    t.subtractGold(50);
+    
+    switch(choice)
+    {
+        case 1:
+            t.subtractGold(10);
+            break;
+        case 2:
+            t.subtractGold(20);
+            break;
+        case 3:
+            t.subtractGold(30);
+    }
 }
 
 void toolsMenu(John &t)
@@ -73,7 +107,7 @@ void toolsMenu(John &t)
 
 void defenceMenu(John &t)
 {
-    string cropsList[5] = {"a", "a", "a", "a", "a"};
+    string cropsList[5] = {"Scarecrow", "a", "a", "a", "a"}; //250
     int choice;
     
     for (int i = 0; i < 5; i++)
@@ -84,7 +118,13 @@ void defenceMenu(John &t)
     cin >> choice;
     cout << endl;
     t.addToInv(cropsList[choice-1]);
-    t.subtractGold(50);
+    
+    switch(choice)
+    {
+        case 1:
+            t.subtractGold(250);
+            break;
+    }
 }
 
 void buyMenu(John &t)
@@ -152,9 +192,13 @@ void menu(John &t)
 int main()
 {
     John t;
+    
+    t.outputGold();
+    t.outputInv();
 
     menu(t);
     
+    t.outputInv();
     
     return 0;
 }
