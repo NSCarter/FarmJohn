@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "Player.cpp"
+#include "Player.h"
 using namespace std;
 
 void buy(John &t, vector<pair<string, int>> list) //Function to allow the player to buy an item
@@ -102,7 +102,7 @@ void sell(John &t, vector<pair<string, int>> list) //Function to allow the playe
         sell(t, list); //If the number was not valid, ask the player to try again
     }
     
-    cout << "How many would you like to buy? ";
+    cout << "How many would you like to sell? ";
     cin >> amount; //Player enters how many of the item they want to sell
     cout << endl;
     
