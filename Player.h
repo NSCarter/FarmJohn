@@ -94,6 +94,18 @@ class John
         }
     }
     
+    bool checkInInv(string item)
+    {
+        for (int i = 0; i < inventory.size(); i++)
+        {
+            if (inventory[i].first == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     void playerStats()
     {
         cout << "Stats" << endl;
